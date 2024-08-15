@@ -289,18 +289,18 @@ export const OutlineColorIcon = ({
     className="svg-icon"
     {...props}
   >
-    <path fill="url(#paint0_linear_48_11489)" d="M8 8H16V16H8z"></path>
+    <path fill="url(#paint0_linear_48_11497)" d="M8 8H16V16H8z"></path>
     <path
       fill="currentColor"
       d="M5 6a1 1 0 011-1h2a1 1 0 011 1v1h6V6a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-1v6h1a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1v-1H9v1a1 1 0 01-1 1H6a1 1 0 01-1-1v-2a1 1 0 011-1h1V9H6a1 1 0 01-1-1V6zm1 0h2v2H6V6zm10 9V9a1 1 0 01-1-1H9a1 1 0 01-1 1v6a1 1 0 011 1h6a1 1 0 011-1zm2-9h-2v2h2V6zM6 16v2h2v-2H6zm10 0h2v2h-2v-2z"
     ></path>
     <defs>
       <linearGradient
-        id="paint0_linear_48_11489"
-        x1="11"
-        x2="24"
-        y1="6"
-        y2="25"
+        id="paint0_linear_48_11497"
+        x1="8.25"
+        x2="18"
+        y1="4.5"
+        y2="18.75"
         gradientUnits="userSpaceOnUse"
       >
         <stop stopColor="#F19B00"></stop>

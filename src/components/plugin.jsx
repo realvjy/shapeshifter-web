@@ -27,180 +27,132 @@ const SNAP_SIZES = [
   { width: 150, height: 310 },
 ];
 
-const Resizer = ({ onResize }) => {
-  const [isResizing, setIsResizing] = useState(false);
-  const [startSize, setStartSize] = useState({
-    width: MIN_WIDTH,
-    height: MIN_HEIGHT,
-  });
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-
-  const handleMouseDown = useCallback((e) => {
-    setIsResizing(true);
-    setStartSize({ width: window.innerWidth, height: window.innerHeight });
-    setStartPos({ x: e.clientX, y: e.clientY });
-  }, []);
-
-  const handleMouseUp = useCallback(() => {
-    setIsResizing(false);
-  }, []);
-
-  const snapToSize = useCallback((width, height) => {
-    return SNAP_SIZES.reduce((closest, size) => {
-      const currentDiff =
-        Math.abs(size.width - width) + Math.abs(size.height - height);
-      const closestDiff =
-        Math.abs(closest.width - width) + Math.abs(closest.height - height);
-      return currentDiff < closestDiff ? size : closest;
-    });
-  }, []);
-
-  const handleMouseMove = useCallback(
-    (e) => {
-      if (!isResizing) return;
-      const deltaX = e.clientX - startPos.x;
-      const deltaY = e.clientY - startPos.y;
-      let newWidth = Math.max(
-        MIN_WIDTH,
-        Math.min(startSize.width + deltaX, MAX_WIDTH)
-      );
-      let newHeight = Math.max(
-        MIN_HEIGHT,
-        Math.min(startSize.height + deltaY, MAX_HEIGHT)
-      );
-
-      // Snap to predefined sizes
-      const snappedSize = snapToSize(newWidth, newHeight);
-      onResize(snappedSize.width, snappedSize.height);
-    },
-    [
-      isResizing,
-      onResize,
-      snapToSize,
-      startPos.x,
-      startPos.y,
-      startSize.width,
-      startSize.height,
-    ]
-  );
-
-  useEffect(() => {
-    if (isResizing) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleMouseUp);
-    }
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isResizing, handleMouseMove, handleMouseUp]);
-
-  return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 0,
-        right: 0,
-        cursor: "nwse-resize",
-      }}
-      onMouseDown={handleMouseDown}
-    >
-      <RoundCornerIcon className="resizer" />
-    </div>
-  );
-};
-
 export default function Plugin() {
   const [label, setLabel] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleResize = useCallback((width, height) => {
+    setSize({ width, height });
+  }, []);
+
+  function showPop(value) {
+    setShow(true);
+    setLabel(value);
+    // Reset to false after 3 seconds (3000 milliseconds)
+    setTimeout(() => {
+      setShow(false);
+    }, 800);
+  }
+
   return (
     <MainWrapper>
+      <div className={`notify ${show ? "show" : ""}`}>
+        <h3>{label}</h3>
+      </div>
       <Titlebar>
         <div className="left">
-          <OutlineColorIcon height="32" width="32" /> Shape Shifter
+          <OutlineColorIcon height="64" width="64" /> <h1>Shape Shifter</h1>
         </div>
-        <div>
-          <CrossIcon />
+        <div className="right">
+          <CrossIcon
+            height="50"
+            width="50"
+            onClick={() => showPop("Close Plugin")}
+          />
         </div>
       </Titlebar>
-      <ShapeBox style={{ flexDirection: label ? "column" : "row" }}>
-        <IconBox className={!label ? "label" : ""}>
-          <UnionIcon height={32} width={32} />
-          <span>Union</span>
+      <ShapeBox>
+        <IconBox onClick={() => showPop("Union")}>
+          <UnionIcon height={64} width={64} />
         </IconBox>
-        <IconBox className={!label ? "label" : ""}>
-          <SubsctractIcon height={32} width={32} />
-          <span>Substract</span>
+        <IconBox onClick={() => showPop("Substract")}>
+          <SubsctractIcon height={64} width={64} />
         </IconBox>
-        <IconBox className={!label ? "label" : ""}>
-          <IntersectionIcon height={32} width={32} />
-          <span>Intersect</span>
+        <IconBox onClick={() => showPop("Intersect")}>
+          <IntersectionIcon height={64} width={64} />
         </IconBox>
-        <IconBox className={!label ? "label" : ""}>
-          <ExcludeIcon height={32} width={32} />
-          <span>Exclude</span>
+        <IconBox onClick={() => showPop("Exclude")}>
+          <ExcludeIcon height={64} width={64} />
         </IconBox>
       </ShapeBox>
-      <Resizer />
-      <ShapeBox style={{ flexDirection: label ? "column" : "row" }}>
-        <IconBox className={!label ? "label" : ""}>
-          <FlattenIcon height={32} width={32} />
-          <span>Flatten</span>
+      <div>
+        <RoundCornerIcon
+          className="resizer"
+          height="32"
+          width="32"
+          onClick={() => showPop("Resize Window")}
+        />
+      </div>
+      <ShapeBox>
+        <IconBox onClick={() => showPop("Flaten")}>
+          <FlattenIcon height={64} width={64} />
         </IconBox>
-        <IconBox className={!label ? "label" : ""}>
-          <MaskIcon height={32} width={32} />
-          <span>Mask</span>
+        <IconBox onClick={() => showPop("Mask")}>
+          <MaskIcon height={64} width={64} />
         </IconBox>
-        <IconBox className={`${!label ? "label" : ""}`}>
-          <ClipIcon height={32} width={32} />
-          <span>Frame Clip</span>
+        <IconBox onClick={() => showPop("Clip")}>
+          <ClipIcon height={64} width={64} />
         </IconBox>
-        <IconBox className={!label ? "label" : ""}>
-          <OutlineIcon height={32} width={32} />
-          <span>Outline Stroke</span>
+        <IconBox onClick={() => showPop("Outline")}>
+          <OutlineIcon height={64} width={64} />
         </IconBox>
       </ShapeBox>
     </MainWrapper>
   );
 }
 const MainWrapper = styled.div`
+  position: relative;
   display: flex;
-  width: 100%;
+  width: 400px;
   flex-direction: column;
   background: var(--white);
   gap: 2px;
-  border-radius: 13px;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 10px 24px rgba(0, 0, 0, 0.18),
-    0px 2px 5px rgba(0, 0, 0, 0.15), 0px 2px 14px rgba(0, 0, 0, 0.15),
-    0px 0px 0px 0.5px rgba(0, 0, 0, 0.2);
+  border-radius: 26px;
+  padding-bottom: 12px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.08), 0px 20px 34px rgba(0, 0, 0, 0.18),
+    0px 4px 10px rgba(0, 0, 0, 0.15), 0px 4px 24px rgba(0, 0, 0, 0.15),
+    0px 0px 1px 1px rgba(0, 0, 0, 0.2);
   .resizer {
+    color: var(--black);
     transition: all ease-in 333ms;
+    bottom: 0;
+    position: absolute;
+    cursor: nwse-resize;
+    right: 0;
     transform: scale(1.1);
     &:hover {
       transform: scale(1.4) translate(-0.75px, -0.75px);
     }
   }
-`;
-
-const Others = styled.div`
-  display: flex;
-  padding: 4px 16px;
-  justify-content: space-between;
+  .notify {
+    position: absolute;
+    bottom: -130px;
+    left: 50%;
+    border-radius: 12px;
+    background-color: rgba(10, 10, 10, 0.7);
+    color: var(--white);
+    padding: 12px 18px;
+    font-weight: 500;
+    z-index: 2;
+    transform: translateX(-50%);
+    transition: all 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    opacity: 0;
+    &.show {
+      opacity: 1;
+      bottom: -100px;
+    }
+  }
 `;
 
 const ShapeBox = styled.div`
   display: flex;
-  padding: 4px 12px;
   justify-content: space-between;
+  flex-direction: row;
+  padding: 8px 20px;
   .active {
     background-color: var(--active-bg);
     color: var(--active-text);
   }
-  .label {
-    flex-direction: row;
-    span {
-      display: none;
-    }
-  }
+
   span {
     font-size: 12px;
     font-weight: 500;
@@ -211,7 +163,7 @@ const ShapeBox = styled.div`
 const IconBox = styled.div`
   display: flex;
   padding: 2px;
-  border-radius: 6px;
+  border-radius: 12px;
   align-items: center;
   gap: 4px;
   &:hover {
@@ -223,10 +175,22 @@ const Titlebar = styled.div`
   display: flex;
   justify-content: space-between;
   align-content: center;
-  padding: 12px 16px;
-  border-bottom: 1px solid rgba(120, 120, 120, 0.1);
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(120, 120, 120, 0.2);
   .left {
     display: flex;
     align-items: center;
+    h1 {
+      font-size: 24px;
+      line-height: 100%;
+      font-weight: 500;
+      margin: 0;
+      color: var(--black);
+    }
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    opacity: 0.6;
   }
 `;

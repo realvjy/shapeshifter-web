@@ -33,15 +33,18 @@ shapeshifter by https://x.com/realvjy
               <div className="logo">
                 <img src="shapeshifter.svg" />
               </div>
+              <p>Figma companion for vector/illustration work</p>
               <div className="install-btn">
                 <a href="https://www.figma.com/@realvjy">
                   <span>
                     <img src="/figma_icon.svg" />
                   </span>
-                  Install on Figma
+                  Install now
                 </a>
               </div>
-              <Plugin />
+              <div className="plugin-box">
+                <Plugin />
+              </div>
             </div>
           </div>
           <div className="footer">
