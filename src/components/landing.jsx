@@ -1,11 +1,11 @@
 import Marquee from "react-fast-marquee";
 import { useEffect, useState, useMemo } from "react";
 import Plugin from "./plugin";
-const previewImgs = ["preview-1.png", "preview-2.png", "preview-3.png"];
+import styled from "styled-components";
+import Link from "next/link";
 
 export default function Landing() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const currentImage = previewImgs[currentImageIndex];
 
   useEffect(() => {
     console.log(`
@@ -17,11 +17,6 @@ export default function Landing() {
                 /_/                                              
 shapeshifter by https://x.com/realvjy
 `);
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % previewImgs.length);
-    }, 1200);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -48,27 +43,63 @@ shapeshifter by https://x.com/realvjy
             </div>
           </div>
           <div className="footer">
-            <div className="footer-credit">
-              crafted at
-              <a
-                href="https://overlayz.studio?ref=gm"
-                target="_blank"
-                className="overlayz"
-              >
-                <img src="overlayz.svg" />
-              </a>
-              by
-              <a
-                href="https://x.com/realvjy"
-                className="realvjy"
-                target="_blank"
-              >
-                <img src="realvjy.svg" />
-              </a>
-            </div>
+            <Wrapper>
+              made by
+              <span>
+                <Link target={"_blank"} href={"https://vjy.me?figmaplugin"}>
+                  <img src="realvjy.svg" className="img-r" />
+                </Link>
+              </span>
+              at
+              <span>
+                <Link
+                  target={"_blank"}
+                  href={"https://overlayz.studio?figmaplugin"}
+                >
+                  @overlayz
+                </Link>
+              </span>
+              <span className={"img"}>
+                <Link target="" href={"https://x.com/realvjy"}>
+                  <img src={"twitter.svg"} />
+                </Link>
+              </span>
+            </Wrapper>
           </div>
         </div>
       </section>
     </main>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  padding: 40px 0;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  font-weight: 500;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.8);
+  gap: 4px;
+  align-items: center;
+  span {
+    padding-inline: 5px;
+    font-weight: 500;
+    .img-r {
+      transform: scale(1.2);
+    }
+    a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 1);
+      opacity: 0.9;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    &.img {
+      padding: 0;
+    }
+  }
+`;

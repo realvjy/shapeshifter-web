@@ -123,6 +123,7 @@ const MainWrapper = styled.div`
       transform: scale(1.4) translate(-0.75px, -0.75px);
     }
   }
+
   .notify {
     position: absolute;
     bottom: -130px;

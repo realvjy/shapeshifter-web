@@ -28,7 +28,7 @@ $widescreen: 71.25rem; // 1140px
 
 body {
   font-family: "Inter", sans-serif;
-  background: var(--background);
+  background: #FF00FF;
   background-image: linear-gradient(180deg, #F19B00 0%, #FF00FF 100%);
   background-attachment: fixed;
 
@@ -45,8 +45,13 @@ main {
 .container {
   margin: 0 auto;
   max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @media screen and (max-width: $non-desktop) {
     padding: 0 20px;
+    width: 100%;
+    overflow: hidden;
   }
 }
 .install-btn {
@@ -105,8 +110,16 @@ main {
   margin: 0 auto;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1400px) {
+    max-width: 1200px;
+  }
   .plugin-box{
     margin-top: 40px;
+    @media screen and (max-width: $mobile-landscape) {
+      transform: scale(0.8);
+      padding: 6px;
+      margin-top: 10px;
+    }
   }
 }
 .meta-section {
@@ -121,14 +134,15 @@ main {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 1400px;
-
+  @media screen and (max-width: 1400px) {
+    background-size: 1200px;
+  }
   .meta-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 440px;
-
+    width: 100%;
     .cat-image {
       max-width: 300px;
       transform: translateY(36px);
@@ -156,7 +170,7 @@ main {
       align-items: center;
       padding-bottom: 60px;
       position: relative;
-
+      width: 100%;
       p{
         color: var(--white);
         font-size: 18px;
@@ -171,10 +185,11 @@ main {
     }
 
     .logo {
-      // max-width: 400px;
-      z-index: 1;
-      @media screen and (max-width: $non-desktop) {
-        max-width: 330px;
+      img{
+        max-width: 440px;
+        @media screen and (max-width: $non-desktop) {
+          width: 200px;
+        }
       }
     }
   }
@@ -297,7 +312,12 @@ main {
   display: flex;
   align-items: center;
   width: 100%;
-
+  @media screen and (max-width: $non-desktop) {
+    bottom: 50px;
+  }
+  @media screen and (max-width: 1400px) {
+    bottom: -20px;
+  }
   .footer-credit {
     display: flex;
     justify-content: center;
@@ -329,9 +349,11 @@ main {
     flex-direction: column;
     .top {
       .logo {
-        max-width: 440px;
-        @media screen and (max-width: $non-desktop) {
-          max-width: 330px;
+        img{
+          max-width: 440px;
+          @media screen and (max-width: $non-desktop) {
+            max-width: 300px;
+          }
         }
       }
       a {

@@ -4,21 +4,21 @@ const Page = () => (
   <>
     <NextSeo
       title="Shape Shifter - Figma Plugin"
-      description="Beautiful gradient generator for figma"
-      canonical="https://vjy.me"
+      description="Figma companion for vector/illustration work"
+      canonical="https://ss.figmaplug.in"
       openGraph={{
-        url: "https://vjy.me",
-        title: "SHape Shifter - Figma Plugin & Web app",
-        description: "Shape Shifter like photoshop in Figma",
+        url: "https://ss.figmaplug.in",
+        title: "SHape Shifter - Figma Plugin",
+        description: "Shape Shifter- Figma companion for vector/illustration work",
         images: [
           {
-            url: "https://vjy.me/ss-preview.jpg",
-            alt: "Shape Shifter - Figma Plugin & Web app",
+            url: "https://ss.figmaplug.in/preview.jpg",
+            alt: "Shape Shifter - Figma Plugin",
           },
         ],
-        site_name: "Shape Shifter - Figma Plugin & Web app",
+        site_name: "Shape Shifter - Figma Plugin",
       }}
-      keywords="gradient, figma plugin, gradientmap, figma, color, figma image, realvjy, overlayz, figma gradient"
+      keywords="pathfinder, figma pathfinder, union, path, intersect, merge figma, illustration, overlayz, figma vector"
       twitter={{
         handle: "@realvjy",
         site: "https://vjy.me",
