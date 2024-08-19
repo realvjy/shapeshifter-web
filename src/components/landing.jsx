@@ -30,7 +30,7 @@ shapeshifter by https://x.com/realvjy
               </div>
               <p>Figma companion for vector/illustration work</p>
               <div className="install-btn">
-                <a href="https://www.figma.com/@realvjy">
+                <a href="https://s.vjy.me/shapeshifter">
                   <span>
                     <img src="/figma_icon.svg" />
                   </span>
@@ -46,7 +46,7 @@ shapeshifter by https://x.com/realvjy
             <Wrapper>
               made by
               <span>
-                <Link target={"_blank"} href={"https://vjy.me?figmaplugin"}>
+                <Link target={"_blank"} href={"https://vjy.me?ss"}>
                   <img src="realvjy.svg" className="img-r" />
                 </Link>
               </span>

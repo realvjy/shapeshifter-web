@@ -70,7 +70,8 @@ main {
   cursor: pointer;
   transition: 0.5s;
   &:hover {
-    box-shadow: inset rgba(0, 0, 0, 1) 0px 0px 4px -2px;
+    
+    box-shadow: inset rgba(255, 10, 10, 1) 0px 0px 12px -1px;
   }
   a {
     text-decoration: none;
